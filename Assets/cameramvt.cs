@@ -20,6 +20,10 @@ public class cameracam : MonoBehaviour
     float valueup;
     float valuedown;
 
+    GameObject focus;
+
+    private SceneInfo sceneInfo;
+
     void Awake()
     {
         controls = new Controls();
@@ -31,21 +35,47 @@ public class cameracam : MonoBehaviour
         controls.gameplay.camdown.canceled += ctx => valuedown = 0;
         controls.gameplay.camup.performed += ctx => valueup = 1;
         controls.gameplay.camup.canceled += ctx => valueup = 0;
+        sceneInfo = GameObject.Find("GeneralManager").GetComponent<SceneInfo>();
     }
 
     // Update is called once per frame
     void Update()
     {
         updatecontrols(valueright, valueleft, valueup, valuedown);
-        transform.position = Player.transform.position;
+        if(sceneInfo.incombat)
+        {
+            if(focus ==null)
+            {
+                foreach(GameObject ennemy in sceneInfo.enemylist)
+                {
+                    if(focus == null)
+                    {
+                        focus = ennemy;
+                    }
+                    else if(Vector2.Distance(focus.transform.position,Player.transform.position)> Vector2.Distance(focus.transform.position, ennemy.transform.position))
+                    {
+                        focus = ennemy;
+                    }
+                }
+               
+            }
+            transform.position = Player.transform.position + new Vector3(0f,1f,0f);
+            transform.forward = focus.transform.position - transform.position;
+
+        }
+        else
+        {
+            transform.position = Player.transform.position;
+
+            localRot.x += camstick.x * mousespeed;
+            localRot.y -= camstick.y * mousespeed;
+
+            localRot.y = Mathf.Clamp(localRot.y, -10f, 80f);
+
+            Quaternion QT = Quaternion.Euler(localRot.y, localRot.x, 0f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, QT, Time.deltaTime * orbitDamping);
+        }
         
-        localRot.x += camstick.x * mousespeed;
-        localRot.y -= camstick.y * mousespeed;
-
-        localRot.y = Mathf.Clamp(localRot.y, -10f, 80f);
-
-        Quaternion QT = Quaternion.Euler(localRot.y, localRot.x, 0f);
-        transform.rotation = Quaternion.Lerp(transform.rotation, QT, Time.deltaTime * orbitDamping);
 
     }
 

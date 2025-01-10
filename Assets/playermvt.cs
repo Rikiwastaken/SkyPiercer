@@ -58,6 +58,9 @@ public class playermvt : MonoBehaviour
 
     private float lastvely;
 
+    [Header("Combat Variables")]
+    public SceneInfo sceneInfo;
+
     void Awake()
     {
         controls = new Controls();
@@ -79,6 +82,7 @@ public class playermvt : MonoBehaviour
 
 
         rb = GetComponent<Rigidbody>();
+        sceneInfo = GameObject.Find("GeneralManager").GetComponent<SceneInfo>();
     }
 
     // Update is called once per frame
@@ -108,7 +112,7 @@ public class playermvt : MonoBehaviour
             GetComponent<Grapplefind>().ReinitGrapples();
         }
 
-        if (GetComponent<Grapplefind>().activegrapple != null && grappleinput==1 && !grapkeypressed && !GetComponent<Grapplefind>().grappling)
+        if (GetComponent<Grapplefind>().activegrapple != null && grappleinput==1 && !grapkeypressed && !GetComponent<Grapplefind>().grappling && !sceneInfo.incombat)
         {
             GetComponent<Grapplefind>().grappling = true;
         }
@@ -153,7 +157,7 @@ public class playermvt : MonoBehaviour
                 grounded = false;
             }
 
-            if (valuejump != 0 && grounded && jumpcnt == 0)
+            if (valuejump != 0 && grounded && jumpcnt == 0 && !sceneInfo.incombat)
             {
                 jumpcnt = jumpduration;
                 //rb.AddForce(new Vector3(0, jumpstr, 0));
@@ -210,7 +214,6 @@ public class playermvt : MonoBehaviour
         {
             transform.forward = new Vector3(rb.velocity.x, 0, rb.velocity.z);
         }
-        Debug.Log(collidingx+" "+collidingz);
     }
 
     void updatecontrols(float valueright, float valueleft, float valueup, float valuedown)
