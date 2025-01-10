@@ -150,6 +150,7 @@ MonoBehaviour:
     m_Bits: 64
   collidingx: 0
   collidingz: 0
+  sceneInfo: {fileID: 0}
 --- !u!114 &3250812331048651244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,8 +180,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentHP: 0
-  MaxHP: 0
+  MaxHP: 100
   moveIDlist: 0000000000000000
+  BaseDamage: 20
+  AutoAttackCD: 1
+  AutoAttackCounter: 0
+  autoattackrange: 2
+  TextPopUp: {fileID: 8633779991096019297, guid: a456f39dd38be2c4e82bc0d30020bc10, type: 3}
 --- !u!1 &2715317973663348805
 GameObject:
   m_ObjectHideFlags: 0

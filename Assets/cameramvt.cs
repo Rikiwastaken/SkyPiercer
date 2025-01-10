@@ -44,23 +44,23 @@ public class cameracam : MonoBehaviour
         updatecontrols(valueright, valueleft, valueup, valuedown);
         if(sceneInfo.incombat)
         {
-            if(focus ==null)
+            if(sceneInfo.focus ==null)
             {
                 foreach(GameObject ennemy in sceneInfo.enemylist)
                 {
-                    if(focus == null)
+                    if(sceneInfo.focus == null)
                     {
-                        focus = ennemy;
+                        sceneInfo.focus = ennemy;
                     }
-                    else if(Vector2.Distance(focus.transform.position,Player.transform.position)> Vector2.Distance(focus.transform.position, ennemy.transform.position))
+                    else if(Vector2.Distance(sceneInfo.focus.transform.position,Player.transform.position)> Vector2.Distance(sceneInfo.focus.transform.position, ennemy.transform.position))
                     {
-                        focus = ennemy;
+                        sceneInfo.focus = ennemy;
                     }
                 }
                
             }
             transform.position = Player.transform.position + new Vector3(0f,1f,0f);
-            transform.forward = focus.transform.position - transform.position;
+            transform.forward = sceneInfo.focus.transform.position - transform.position;
 
         }
         else
