@@ -41,6 +41,21 @@ public class ArtsIconManager : MonoBehaviour
             Color oldcolor = art.icon.transform.GetChild(0).GetComponent<Image>().color;
             Color newcolor = new Color(oldcolor.r, oldcolor.g, oldcolor.b, 0.1f + (200f / 255f) * (art.cooldowncounter / (art.cooldown / Time.deltaTime)));
             art.icon.transform.GetChild(0).GetComponent<Image>().color = newcolor;
+            if(sceneinfo.focus!=null)
+            {
+                if (Vector3.Distance(combatcharacter.transform.position, sceneinfo.focus.transform.position) >= art.range)
+                {
+                    art.icon.transform.GetChild(1).gameObject.SetActive(true);
+                }
+                else
+                {
+                    art.icon.transform.GetChild(1).gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                art.icon.transform.GetChild(1).gameObject.SetActive(false);
+            }
         }
 
         if(sceneinfo.incombat && GetComponent<RectTransform>().position.x>= basePos.x)

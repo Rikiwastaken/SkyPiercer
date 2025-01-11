@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ennemyscript : MonoBehaviour
 {
@@ -75,8 +76,24 @@ public class ennemyscript : MonoBehaviour
             }
         }
 
+        ManageHPSlider();
 
 
+
+    }
+
+    private void ManageHPSlider()
+    {
+        if(sceneInfo.incombat)
+        {
+            GetComponentInChildren<Canvas>().enabled=true;
+            GetComponentInChildren<Slider>().value = (float)currentHP/(float)maxHP;
+            GetComponentInChildren<Canvas>().transform.forward = GameObject.FindAnyObjectByType<Camera>().transform.forward;
+        }
+        else
+        {
+            GetComponentInChildren<Canvas>().enabled = false;
+        }
     }
 
     private void ManageAutoAttack()
@@ -86,11 +103,11 @@ public class ennemyscript : MonoBehaviour
         {
             AutoAttackCounter--;
         }
-        else if (Vector3.Distance(target.transform.position, transform.position) <= autoattackrange)
+        else if (Vector3.Distance(target.transform.position, transform.position) <= autoattackrange*1.8f)
         {
             target.GetComponent<CombatCharacter>().CurrentHP -= BaseDamage;
             AutoAttackCounter = (int)(AutoAttackCD / Time.deltaTime);
-            sceneInfo.SpawnDamageText(BaseDamage, new Color(0.9f, 0f, 0f));
+            sceneInfo.SpawnDamageText(BaseDamage, new Color(0.9f, 0f, 0f), false);
         }
     }
 
@@ -98,7 +115,7 @@ public class ennemyscript : MonoBehaviour
     {
         foreach (Art art in MoveIdList)
         {
-            art.cooldowncounter = (int)Random.Range(10,art.cooldown);
+            art.cooldowncounter = (int)(Random.Range(5,art.cooldown)/Time.fixedDeltaTime);
         }
     }
 
@@ -111,7 +128,7 @@ public class ennemyscript : MonoBehaviour
             {
                 art.cooldowncounter = (int)(art.cooldown / Time.deltaTime);
                 target.GetComponent<CombatCharacter>().CurrentHP -= (int)(BaseDamage * art.multiplier);
-                sceneInfo.SpawnDamageText((int)(BaseDamage * art.multiplier), new Color(0.886f, 0.5446f, 0f));
+                sceneInfo.SpawnDamageText((int)(BaseDamage * art.multiplier), new Color(0.9f, 0f, 0f), true);
             }
             else if(art.cooldowncounter > 0)
             {

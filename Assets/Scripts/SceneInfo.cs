@@ -14,7 +14,7 @@ public class SceneInfo : MonoBehaviour
 
     private void Start()
     {
-        Canvas = GameObject.Find("Canvas");
+        Canvas = GameObject.Find("MainCanvas");
     }
 
     private void FixedUpdate()
@@ -30,25 +30,40 @@ public class SceneInfo : MonoBehaviour
     }
 
 
-    public void SpawnDamageText(float damage)
+    public void SpawnDamageText(float damage, bool isart)
     {
         
         Vector3 newposition =  new Vector3(Random.Range(-200f, 200f), 20 + Random.Range(0f, 100f), 0);
         GameObject newtext = Instantiate(TextPopUp, Canvas.transform);
         newtext.transform.position = newposition+ Canvas.transform.position;
 
-        newtext.GetComponent<TextMeshProUGUI>().text = "" + (int)damage;
+        
+        if(isart)
+        {
+            newtext.GetComponent<TextMeshProUGUI>().text = "<u>" + (int)damage + "<u>";
+        }
+        else
+        {
+            newtext.GetComponent<TextMeshProUGUI>().text = "" + (int)damage;
+        }
         Debug.Log(newtext.transform.position);
     }
 
-    public void SpawnDamageText(float damage, Color color)
+    public void SpawnDamageText(float damage, Color color, bool isart)
     {
 
         Vector3 newposition = new Vector3(Random.Range(-200f, 200f), 20 + Random.Range(0f, 100f), 0);
         GameObject newtext = Instantiate(TextPopUp, Canvas.transform);
         newtext.transform.position = newposition + Canvas.transform.position;
         newtext.GetComponent<TextMeshProUGUI>().color = color;
-        newtext.GetComponent<TextMeshProUGUI>().text = "" + (int)damage;
+        if (isart)
+        {
+            newtext.GetComponent<TextMeshProUGUI>().text = "<u>" + (int)damage + "<u>";
+        }
+        else
+        {
+            newtext.GetComponent<TextMeshProUGUI>().text = "" + (int)damage;
+        }
         Debug.Log(newtext.transform.position);
     }
 

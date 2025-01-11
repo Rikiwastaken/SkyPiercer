@@ -108,7 +108,7 @@ public class CombatCharacter : MonoBehaviour
         {
             sceneInfo.focus.GetComponentInChildren<ennemyscript>().currentHP-=BaseDamage;
             AutoAttackCounter = (int)(AutoAttackCD/Time.deltaTime);
-            sceneInfo.SpawnDamageText(BaseDamage);
+            sceneInfo.SpawnDamageText(BaseDamage, false);
         }
     }
 
@@ -127,17 +127,17 @@ public class CombatCharacter : MonoBehaviour
             }
             else if (art.binding == 3)
             {
-                correctinput += valueRightBumper;
+                correctinput += valueRightTrigger;
             }
             else if (art.binding==4)
             {
-                correctinput = valueRightTrigger;
+                correctinput = valueRightBumper;
             }
             if (correctinput == 1 && art.cooldowncounter==0 && Vector2.Distance(sceneInfo.focus.transform.position,transform.position)<=art.range)
             {
                 art.cooldowncounter= (int)(art.cooldown/Time.deltaTime);
                 sceneInfo.focus.GetComponent<ennemyscript>().currentHP-=(int)(BaseDamage*art.multiplier);
-                sceneInfo.SpawnDamageText((int)(BaseDamage * art.multiplier), new Color(0.886f,0.5446f,0f));
+                sceneInfo.SpawnDamageText((int)(BaseDamage * art.multiplier), new Color(0.886f,0.5446f,0f), true);
             }
         }
         
