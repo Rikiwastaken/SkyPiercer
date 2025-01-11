@@ -28,7 +28,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             ""id"": ""9c17cb1c-96df-4be3-9f40-085f26712893"",
             ""actions"": [
                 {
-                    ""name"": ""Jump"",
+                    ""name"": ""ButtonSouth"",
                     ""type"": ""Button"",
                     ""id"": ""e38ba259-7277-48b9-a6db-9e7efd7bc1f1"",
                     ""expectedControlType"": ""Button"",
@@ -109,9 +109,36 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Grapple"",
+                    ""name"": ""LeftTrigger"",
                     ""type"": ""Button"",
                     ""id"": ""6fb3791e-e849-4d81-ab6c-ca090a183546"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeftBumper"",
+                    ""type"": ""Button"",
+                    ""id"": ""97c59523-62c9-4769-a22f-2cb6358d553a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightTrigger"",
+                    ""type"": ""Button"",
+                    ""id"": ""24b7bd93-f16f-456f-913d-0fb5b2094768"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightBumper"",
+                    ""type"": ""Button"",
+                    ""id"": ""aeaffb16-e75f-4ada-856e-f54491704cac"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -126,7 +153,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Jump"",
+                    ""action"": ""ButtonSouth"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -137,7 +164,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Jump"",
+                    ""action"": ""ButtonSouth"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -280,7 +307,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Grapple"",
+                    ""action"": ""LeftTrigger"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -291,7 +318,40 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Grapple"",
+                    ""action"": ""LeftTrigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ffc9cb2e-fce8-47d5-a0e4-47fae442ea54"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftBumper"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""62f0e7d6-4882-4ee8-bb75-d005fda5de83"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightTrigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6d28c558-840f-4751-a778-121ae150c09c"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightBumper"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -302,7 +362,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
 }");
         // gameplay
         m_gameplay = asset.FindActionMap("gameplay", throwIfNotFound: true);
-        m_gameplay_Jump = m_gameplay.FindAction("Jump", throwIfNotFound: true);
+        m_gameplay_ButtonSouth = m_gameplay.FindAction("ButtonSouth", throwIfNotFound: true);
         m_gameplay_moveup = m_gameplay.FindAction("moveup", throwIfNotFound: true);
         m_gameplay_movedown = m_gameplay.FindAction("movedown", throwIfNotFound: true);
         m_gameplay_moveleft = m_gameplay.FindAction("moveleft", throwIfNotFound: true);
@@ -311,7 +371,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_gameplay_camleft = m_gameplay.FindAction("camleft", throwIfNotFound: true);
         m_gameplay_camdown = m_gameplay.FindAction("camdown", throwIfNotFound: true);
         m_gameplay_camup = m_gameplay.FindAction("camup", throwIfNotFound: true);
-        m_gameplay_Grapple = m_gameplay.FindAction("Grapple", throwIfNotFound: true);
+        m_gameplay_LeftTrigger = m_gameplay.FindAction("LeftTrigger", throwIfNotFound: true);
+        m_gameplay_LeftBumper = m_gameplay.FindAction("LeftBumper", throwIfNotFound: true);
+        m_gameplay_RightTrigger = m_gameplay.FindAction("RightTrigger", throwIfNotFound: true);
+        m_gameplay_RightBumper = m_gameplay.FindAction("RightBumper", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -373,7 +436,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     // gameplay
     private readonly InputActionMap m_gameplay;
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
-    private readonly InputAction m_gameplay_Jump;
+    private readonly InputAction m_gameplay_ButtonSouth;
     private readonly InputAction m_gameplay_moveup;
     private readonly InputAction m_gameplay_movedown;
     private readonly InputAction m_gameplay_moveleft;
@@ -382,12 +445,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_gameplay_camleft;
     private readonly InputAction m_gameplay_camdown;
     private readonly InputAction m_gameplay_camup;
-    private readonly InputAction m_gameplay_Grapple;
+    private readonly InputAction m_gameplay_LeftTrigger;
+    private readonly InputAction m_gameplay_LeftBumper;
+    private readonly InputAction m_gameplay_RightTrigger;
+    private readonly InputAction m_gameplay_RightBumper;
     public struct GameplayActions
     {
         private @Controls m_Wrapper;
         public GameplayActions(@Controls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Jump => m_Wrapper.m_gameplay_Jump;
+        public InputAction @ButtonSouth => m_Wrapper.m_gameplay_ButtonSouth;
         public InputAction @moveup => m_Wrapper.m_gameplay_moveup;
         public InputAction @movedown => m_Wrapper.m_gameplay_movedown;
         public InputAction @moveleft => m_Wrapper.m_gameplay_moveleft;
@@ -396,7 +462,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @camleft => m_Wrapper.m_gameplay_camleft;
         public InputAction @camdown => m_Wrapper.m_gameplay_camdown;
         public InputAction @camup => m_Wrapper.m_gameplay_camup;
-        public InputAction @Grapple => m_Wrapper.m_gameplay_Grapple;
+        public InputAction @LeftTrigger => m_Wrapper.m_gameplay_LeftTrigger;
+        public InputAction @LeftBumper => m_Wrapper.m_gameplay_LeftBumper;
+        public InputAction @RightTrigger => m_Wrapper.m_gameplay_RightTrigger;
+        public InputAction @RightBumper => m_Wrapper.m_gameplay_RightBumper;
         public InputActionMap Get() { return m_Wrapper.m_gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -406,9 +475,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_GameplayActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_GameplayActionsCallbackInterfaces.Add(instance);
-            @Jump.started += instance.OnJump;
-            @Jump.performed += instance.OnJump;
-            @Jump.canceled += instance.OnJump;
+            @ButtonSouth.started += instance.OnButtonSouth;
+            @ButtonSouth.performed += instance.OnButtonSouth;
+            @ButtonSouth.canceled += instance.OnButtonSouth;
             @moveup.started += instance.OnMoveup;
             @moveup.performed += instance.OnMoveup;
             @moveup.canceled += instance.OnMoveup;
@@ -433,16 +502,25 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @camup.started += instance.OnCamup;
             @camup.performed += instance.OnCamup;
             @camup.canceled += instance.OnCamup;
-            @Grapple.started += instance.OnGrapple;
-            @Grapple.performed += instance.OnGrapple;
-            @Grapple.canceled += instance.OnGrapple;
+            @LeftTrigger.started += instance.OnLeftTrigger;
+            @LeftTrigger.performed += instance.OnLeftTrigger;
+            @LeftTrigger.canceled += instance.OnLeftTrigger;
+            @LeftBumper.started += instance.OnLeftBumper;
+            @LeftBumper.performed += instance.OnLeftBumper;
+            @LeftBumper.canceled += instance.OnLeftBumper;
+            @RightTrigger.started += instance.OnRightTrigger;
+            @RightTrigger.performed += instance.OnRightTrigger;
+            @RightTrigger.canceled += instance.OnRightTrigger;
+            @RightBumper.started += instance.OnRightBumper;
+            @RightBumper.performed += instance.OnRightBumper;
+            @RightBumper.canceled += instance.OnRightBumper;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
         {
-            @Jump.started -= instance.OnJump;
-            @Jump.performed -= instance.OnJump;
-            @Jump.canceled -= instance.OnJump;
+            @ButtonSouth.started -= instance.OnButtonSouth;
+            @ButtonSouth.performed -= instance.OnButtonSouth;
+            @ButtonSouth.canceled -= instance.OnButtonSouth;
             @moveup.started -= instance.OnMoveup;
             @moveup.performed -= instance.OnMoveup;
             @moveup.canceled -= instance.OnMoveup;
@@ -467,9 +545,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @camup.started -= instance.OnCamup;
             @camup.performed -= instance.OnCamup;
             @camup.canceled -= instance.OnCamup;
-            @Grapple.started -= instance.OnGrapple;
-            @Grapple.performed -= instance.OnGrapple;
-            @Grapple.canceled -= instance.OnGrapple;
+            @LeftTrigger.started -= instance.OnLeftTrigger;
+            @LeftTrigger.performed -= instance.OnLeftTrigger;
+            @LeftTrigger.canceled -= instance.OnLeftTrigger;
+            @LeftBumper.started -= instance.OnLeftBumper;
+            @LeftBumper.performed -= instance.OnLeftBumper;
+            @LeftBumper.canceled -= instance.OnLeftBumper;
+            @RightTrigger.started -= instance.OnRightTrigger;
+            @RightTrigger.performed -= instance.OnRightTrigger;
+            @RightTrigger.canceled -= instance.OnRightTrigger;
+            @RightBumper.started -= instance.OnRightBumper;
+            @RightBumper.performed -= instance.OnRightBumper;
+            @RightBumper.canceled -= instance.OnRightBumper;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -489,7 +576,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     public GameplayActions @gameplay => new GameplayActions(this);
     public interface IGameplayActions
     {
-        void OnJump(InputAction.CallbackContext context);
+        void OnButtonSouth(InputAction.CallbackContext context);
         void OnMoveup(InputAction.CallbackContext context);
         void OnMovedown(InputAction.CallbackContext context);
         void OnMoveleft(InputAction.CallbackContext context);
@@ -498,6 +585,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnCamleft(InputAction.CallbackContext context);
         void OnCamdown(InputAction.CallbackContext context);
         void OnCamup(InputAction.CallbackContext context);
-        void OnGrapple(InputAction.CallbackContext context);
+        void OnLeftTrigger(InputAction.CallbackContext context);
+        void OnLeftBumper(InputAction.CallbackContext context);
+        void OnRightTrigger(InputAction.CallbackContext context);
+        void OnRightBumper(InputAction.CallbackContext context);
     }
 }

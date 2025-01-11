@@ -15,10 +15,10 @@ public class cameracam : MonoBehaviour
 
     private Vector2 camstick;
 
-    float valueleft;
-    float valueright;
-    float valueup;
-    float valuedown;
+    float valueRightStickleft;
+    float valueRightStickright;
+    float valueRightStickup;
+    float valueRightStickdown;
 
     GameObject focus;
 
@@ -26,22 +26,14 @@ public class cameracam : MonoBehaviour
 
     void Awake()
     {
-        controls = new Controls();
-        controls.gameplay.camleft.performed += ctx => valueleft = 1;
-        controls.gameplay.camright.performed += ctx => valueright = 1;
-        controls.gameplay.camleft.canceled += ctx => valueleft = 0;
-        controls.gameplay.camright.canceled += ctx => valueright = 0;
-        controls.gameplay.camdown.performed += ctx => valuedown = 1;
-        controls.gameplay.camdown.canceled += ctx => valuedown = 0;
-        controls.gameplay.camup.performed += ctx => valueup = 1;
-        controls.gameplay.camup.canceled += ctx => valueup = 0;
         sceneInfo = GameObject.Find("GeneralManager").GetComponent<SceneInfo>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        updatecontrols(valueright, valueleft, valueup, valuedown);
+        GetInputs();
+        updatecontrols(valueRightStickright, valueRightStickleft, valueRightStickup, valueRightStickdown);
         if(sceneInfo.incombat)
         {
             if(sceneInfo.focus ==null)
@@ -79,6 +71,13 @@ public class cameracam : MonoBehaviour
 
     }
 
+    void GetInputs()
+    {
+        valueRightStickdown = sceneInfo.GetComponent<InputsManager>().valueRightStickdown;
+        valueRightStickup = sceneInfo.GetComponent<InputsManager>().valueRightStickup;
+        valueRightStickleft = sceneInfo.GetComponent<InputsManager>().valueRightStickleft;
+        valueRightStickright = sceneInfo.GetComponent<InputsManager>().valueRightStickright;
+    }
     void updatecontrols(float valueright, float valueleft, float valueup, float valuedown)
     {
         if (valueleft == 0 && valueright == 0)
@@ -106,13 +105,5 @@ public class cameracam : MonoBehaviour
         {
             camstick.y = -1;
         }
-    }
-    void OnEnable()
-    {
-        controls.gameplay.Enable();
-    }
-    void OnDisable()
-    {
-        controls.gameplay.Disable();
     }
 }

@@ -8,11 +8,9 @@ using UnityEngine.UI;
 
 public class playermvt : MonoBehaviour
 {
-
-    Controls controls;
     private Rigidbody rb;
 
-    public Transform camera;
+    public Transform cam;
 
     [Header("Movement Variables")]
     public float maxvel;
@@ -46,12 +44,15 @@ public class playermvt : MonoBehaviour
 
     private Vector2 mvtstick;
 
-    float valueleft;
-    float valueright;
-    float valueup;
-    float valuedown;
-    float valuejump;
-    float grappleinput;
+    float valueLeftStickleft;
+    float valueLeftStickright;
+    float valueLeftStickup;
+    float valueLeftStickdown;
+    float valueButtonSouth;
+    float valueLeftTrigger;
+    float valueRightTrigger;
+    float valueLeftBumper;
+    float valueRightBumper;
 
     public int collidingx;
     public int collidingz;
@@ -63,32 +64,15 @@ public class playermvt : MonoBehaviour
 
     void Awake()
     {
-        controls = new Controls();
-
-        controls.gameplay.moveleft.performed += ctx => valueleft = 1;
-        controls.gameplay.moveright.performed += ctx => valueright = 1;
-        controls.gameplay.moveleft.canceled += ctx => valueleft = 0;
-        controls.gameplay.moveright.canceled += ctx => valueright = 0;
-        controls.gameplay.movedown.performed += ctx => valuedown = 1;
-        controls.gameplay.movedown.canceled += ctx => valuedown = 0;
-        controls.gameplay.moveup.performed += ctx => valueup = 1;
-        controls.gameplay.moveup.canceled += ctx => valueup = 0;
-        controls.gameplay.Jump.performed += ctx => valuejump = 1;
-        controls.gameplay.Jump.canceled += ctx => valuejump = 0;
-        controls.gameplay.Grapple.performed += ctx => grappleinput = 1;
-        controls.gameplay.Grapple.canceled += ctx => grappleinput = 0;
-
-
-
 
         rb = GetComponent<Rigidbody>();
         sceneInfo = GameObject.Find("GeneralManager").GetComponent<SceneInfo>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-
+        GetInputs();
         if (jumpcnt > 0)
         {
             jumpcnt--;
@@ -102,7 +86,7 @@ public class playermvt : MonoBehaviour
         }
 
 
-        if (grapkeypressed && grappleinput==0)
+        if (grapkeypressed && valueLeftTrigger==0)
         {
             grapkeypressed = false;
         }
@@ -112,7 +96,7 @@ public class playermvt : MonoBehaviour
             GetComponent<Grapplefind>().ReinitGrapples();
         }
 
-        if (GetComponent<Grapplefind>().activegrapple != null && grappleinput==1 && !grapkeypressed && !GetComponent<Grapplefind>().grappling && !sceneInfo.incombat)
+        if (GetComponent<Grapplefind>().activegrapple != null && valueLeftTrigger==1 && !grapkeypressed && !GetComponent<Grapplefind>().grappling && !sceneInfo.incombat)
         {
             GetComponent<Grapplefind>().grappling = true;
         }
@@ -157,7 +141,7 @@ public class playermvt : MonoBehaviour
                 grounded = false;
             }
 
-            if (valuejump != 0 && grounded && jumpcnt == 0 && !sceneInfo.incombat)
+            if (valueButtonSouth != 0 && grounded && jumpcnt == 0 && !sceneInfo.incombat)
             {
                 jumpcnt = jumpduration;
                 //rb.AddForce(new Vector3(0, jumpstr, 0));
@@ -171,14 +155,28 @@ public class playermvt : MonoBehaviour
         Gizmos.DrawSphere(groundcheck.position, gcradius);
     }
 
+    void GetInputs()
+    {
+        valueLeftStickleft = sceneInfo.GetComponent<InputsManager>().valueLeftStickleft;
+        valueLeftStickright = sceneInfo.GetComponent<InputsManager>().valueLeftStickright;
+        valueLeftStickdown = sceneInfo.GetComponent<InputsManager>().valueLeftStickdown;
+        valueLeftStickup = sceneInfo.GetComponent<InputsManager>().valueLeftStickup;
+        valueButtonSouth = sceneInfo.GetComponent<InputsManager>().valueButtonSouth;
+        valueLeftTrigger = sceneInfo.GetComponent<InputsManager>().valueLeftTrigger;
+        valueRightTrigger = sceneInfo.GetComponent<InputsManager>().valueRightTrigger;
+        valueLeftBumper = sceneInfo.GetComponent<InputsManager>().valueLeftBumper;
+        valueRightBumper = sceneInfo.GetComponent<InputsManager>().valueRightBumper;
+        
+    }
+
     void movement()
     {
-        updatecontrols(valueright, valueleft, valueup, valuedown);
+        updatecontrols(valueLeftStickright, valueLeftStickleft, valueLeftStickup, valueLeftStickdown);
         float horInput = mvtstick.x * maxvel;
         float verInput = mvtstick.y * maxvel;
 
-        Vector3 camforward = camera.forward;
-        Vector3 camright = camera.right;
+        Vector3 camforward = cam.forward;
+        Vector3 camright = cam.right;
 
         camforward.y = 0;
         camright.y = 0;
@@ -275,13 +273,6 @@ public class playermvt : MonoBehaviour
         }
     }
 
-    void OnEnable()
-    {
-        controls.gameplay.Enable();
-    }
-    void OnDisable()
-    {
-        controls.gameplay.Disable();
-    }
+    
 
 }

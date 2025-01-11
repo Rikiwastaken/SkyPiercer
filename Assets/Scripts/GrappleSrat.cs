@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrapplePoint : MonoBehaviour
+public class GrappleSrat : MonoBehaviour
 {
+
+    public float rot;
+
     private Rigidbody rb;
 
-    public Transform camera;
-
-    public bool alreadyused;
+    public Transform cam;
 
     // Start is called before the first frame update
     void Awake()
@@ -19,7 +20,9 @@ public class GrapplePoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
+        transform.forward = cam.transform.forward;
 
-        transform.forward = camera.transform.forward;
+        rb.angularVelocity = new Vector3(0, 0, rot);
     }
 }

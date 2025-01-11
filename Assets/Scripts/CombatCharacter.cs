@@ -3,14 +3,31 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+
+[System.Serializable]
+public class Art
+{
+    public float cooldown;
+    public float cooldowncounter;
+    public string name;
+    public float multiplier;
+    public Sprite Sprite;
+    public int binding; // 1: left trigger, 2: left bumper, 3 : right bumper; 4 : right trigger
+}
+
 public class CombatCharacter : MonoBehaviour
 {
+
+    
+
+
     [Header("HP")]
     public int CurrentHP;
     public int MaxHP;
 
     [Header("Moves")]
-    public List<int> moveIDlist;
+    
+    public List<Art> moveIDlist;
     private List<int> moveCDlist;
 
 
@@ -21,7 +38,6 @@ public class CombatCharacter : MonoBehaviour
     public float autoattackrange;
 
     private SceneInfo sceneInfo;
-    public GameObject TextPopUp;
 
     void Start()
     {
@@ -65,15 +81,10 @@ public class CombatCharacter : MonoBehaviour
         {
             sceneInfo.focus.GetComponentInChildren<ennemyscript>().currentHP-=BaseDamage;
             AutoAttackCounter = (int)(AutoAttackCD/Time.deltaTime);
-            SpawnDamageText(BaseDamage, sceneInfo.focus);
+            sceneInfo.SpawnDamageText(BaseDamage, sceneInfo.focus);
         }
     }
 
-    private void SpawnDamageText(float damage, GameObject target)
-    {
-        Vector3 newposition = target.transform.position + new Vector3(Random.Range(0f,0.5f), 1+Random.Range(0f, 0.5f), Random.Range(0f, 0.5f));
-        GameObject newtext = Instantiate(TextPopUp, newposition, Quaternion.identity);
-        newtext.GetComponent<TextMeshPro>().text = ""+(int)damage;
-    }
+    
 
 }

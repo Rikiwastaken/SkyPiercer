@@ -13,6 +13,7 @@ public class CombatText : MonoBehaviour
     private GameObject Cam;
     void Start()
     {
+
         Cam = GameObject.Find("Main Camera");
         framesbeforefade = (int)(timebeforefade/Time.deltaTime);
     }
@@ -30,5 +31,6 @@ public class CombatText : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        transform.rotation = Quaternion.identity;
     }
 }
