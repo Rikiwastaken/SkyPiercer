@@ -21,8 +21,9 @@ public class CombatCharacter : MonoBehaviour
 {
 
     [Header("HP")]
-    public int CurrentHP;
+    public float CurrentHP;
     public int MaxHP;
+    public float regenoutofcombat;
 
     [Header("Moves")]
     
@@ -46,6 +47,7 @@ public class CombatCharacter : MonoBehaviour
     void Start()
     {
         sceneInfo = GameObject.Find("GeneralManager").GetComponent<SceneInfo>();
+        CurrentHP = MaxHP;
     }
 
     // Update is called once per frame
@@ -64,6 +66,11 @@ public class CombatCharacter : MonoBehaviour
             {
                 art.cooldowncounter = 0;
             }
+            if(CurrentHP<MaxHP)
+            {
+                CurrentHP += regenoutofcombat * Time.fixedDeltaTime;
+            }
+            
         }
         
 
