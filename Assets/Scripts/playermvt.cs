@@ -50,9 +50,6 @@ public class playermvt : MonoBehaviour
     float valueLeftStickdown;
     float valueButtonSouth;
     float valueLeftTrigger;
-    float valueRightTrigger;
-    float valueLeftBumper;
-    float valueRightBumper;
 
     public int collidingx;
     public int collidingz;
@@ -163,9 +160,6 @@ public class playermvt : MonoBehaviour
         valueLeftStickup = sceneInfo.GetComponent<InputsManager>().valueLeftStickup;
         valueButtonSouth = sceneInfo.GetComponent<InputsManager>().valueButtonSouth;
         valueLeftTrigger = sceneInfo.GetComponent<InputsManager>().valueLeftTrigger;
-        valueRightTrigger = sceneInfo.GetComponent<InputsManager>().valueRightTrigger;
-        valueLeftBumper = sceneInfo.GetComponent<InputsManager>().valueLeftBumper;
-        valueRightBumper = sceneInfo.GetComponent<InputsManager>().valueRightBumper;
         
     }
 

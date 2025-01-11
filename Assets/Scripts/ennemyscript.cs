@@ -10,32 +10,27 @@ public class ennemyscript : MonoBehaviour
     public float detectray;
 
     private SceneInfo sceneInfo;
+    private Transform player;
     private void Start()
     {
         sceneInfo = GameObject.Find("GeneralManager").GetComponent<SceneInfo>();
         currentHP = maxHP;
-        GetComponent<SphereCollider>().radius= detectray;
+        player = GameObject.FindAnyObjectByType<playermvt>().transform;
     }
 
-    private void OnTriggerEnter(Collider collision)
+    private void FixedUpdate()
     {
-        Debug.Log(collision.name);
-        Debug.Log(Mathf.Abs(collision.transform.position.y - transform.position.y));
-        Debug.Log(collision.GetComponent<playermvt>());
-        if (Mathf.Abs(collision.transform.position.y-transform.position.y) <2 && collision.GetComponent<playermvt>())
+
+        if(player != null)
         {
-            
-            if (!sceneInfo.incombat)
+            if(Vector3.Distance(player.position,transform.position) <= detectray && !sceneInfo.incombat)
             {
                 sceneInfo.incombat = true;
                 sceneInfo.enemylist = ennemygroup;
             }
         }
-    }
 
-    private void FixedUpdate()
-    {
-        if(currentHP == 0)
+        if(currentHP <= 0)
         {
             sceneInfo.enemylist.Remove(gameObject);
             if (sceneInfo.enemylist.Count == 0)

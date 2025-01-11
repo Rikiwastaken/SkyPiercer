@@ -11,15 +11,14 @@ public class Art
     public float cooldowncounter;
     public string name;
     public float multiplier;
+    public float range;
     public Sprite Sprite;
     public int binding; // 1: left trigger, 2: left bumper, 3 : right bumper; 4 : right trigger
+    public GameObject icon;
 }
 
 public class CombatCharacter : MonoBehaviour
 {
-
-    
-
 
     [Header("HP")]
     public int CurrentHP;
@@ -27,8 +26,7 @@ public class CombatCharacter : MonoBehaviour
 
     [Header("Moves")]
     
-    public List<Art> moveIDlist;
-    private List<int> moveCDlist;
+    public List<Art> MoveIdList;
 
 
     [Header("AutoAttack")]
@@ -37,21 +35,35 @@ public class CombatCharacter : MonoBehaviour
     public int AutoAttackCounter;
     public float autoattackrange;
 
+    [Header("Inputs")]
+    float valueLeftTrigger;
+    float valueRightTrigger;
+    float valueLeftBumper;
+    float valueRightBumper;
+
     private SceneInfo sceneInfo;
 
     void Start()
     {
-        moveCDlist = new List<int>(moveIDlist.Count);
         sceneInfo = GameObject.Find("GeneralManager").GetComponent<SceneInfo>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(sceneInfo.incombat)
+        GetInputs();
+        if (sceneInfo.incombat)
         {
             ManageCD();
             ManageAutoAttack();
+            ManageArts();
+        }
+        else
+        {
+            foreach (Art art in MoveIdList)
+            {
+                art.cooldowncounter = 0;
+            }
         }
         
 
@@ -61,13 +73,21 @@ public class CombatCharacter : MonoBehaviour
 
     private void ManageCD()
     {
-        for (int i = 0; i < moveCDlist.Count; i++)
+        for (int i = 0; i < MoveIdList.Count; i++)
         {
-            if(moveCDlist[i] >= 0)
+            if(MoveIdList[i].cooldowncounter > 0)
             {
-                moveCDlist[i] --;
+                MoveIdList[i].cooldowncounter --;
             }
         }
+    }
+
+    private void GetInputs()
+    {
+        valueLeftTrigger = sceneInfo.GetComponent<InputsManager>().valueLeftTrigger;
+        valueRightTrigger = sceneInfo.GetComponent<InputsManager>().valueRightTrigger;
+        valueLeftBumper = sceneInfo.GetComponent<InputsManager>().valueLeftBumper;
+        valueRightBumper = sceneInfo.GetComponent<InputsManager>().valueRightBumper;
     }
 
     private void ManageAutoAttack()
@@ -81,10 +101,39 @@ public class CombatCharacter : MonoBehaviour
         {
             sceneInfo.focus.GetComponentInChildren<ennemyscript>().currentHP-=BaseDamage;
             AutoAttackCounter = (int)(AutoAttackCD/Time.deltaTime);
-            sceneInfo.SpawnDamageText(BaseDamage, sceneInfo.focus);
+            sceneInfo.SpawnDamageText(BaseDamage);
         }
     }
 
-    
+    private void ManageArts()
+    {
+        foreach(Art art in MoveIdList)
+        {
+            float correctinput = 0;
+            if(art.binding==1)
+            {
+                correctinput = valueLeftTrigger;
+            }
+            else if (art.binding == 2)
+            {
+                correctinput += valueLeftBumper;
+            }
+            else if (art.binding == 3)
+            {
+                correctinput += valueRightBumper;
+            }
+            else if (art.binding==4)
+            {
+                correctinput = valueRightTrigger;
+            }
+            if (correctinput == 1 && art.cooldowncounter==0 && Vector2.Distance(sceneInfo.focus.transform.position,transform.position)<=art.range)
+            {
+                art.cooldowncounter= (int)(art.cooldown/Time.deltaTime);
+                sceneInfo.focus.GetComponent<ennemyscript>().currentHP-=(int)(BaseDamage*art.multiplier);
+                sceneInfo.SpawnDamageText((int)(BaseDamage * art.multiplier), new Color(0.886f,0.5446f,0f));
+            }
+        }
+        
+    }
 
 }

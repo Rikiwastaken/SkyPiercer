@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcee59ab43d1b4c4683c18c741c7c3d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
+  cam: {fileID: 0}
   maxvel: 10
   slowdownx: 0.1
   slowdownz: 0.1
@@ -181,12 +181,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentHP: 0
   MaxHP: 100
-  moveIDlist: 0000000000000000
+  MoveIdList:
+  - cooldown: 3
+    cooldowncounter: 0
+    name: 
+    multiplier: 1.2
+    range: 2
+    Sprite: {fileID: 0}
+    binding: 1
+    icon: {fileID: 0}
+  - cooldown: 20
+    cooldowncounter: 0
+    name: 
+    multiplier: 2
+    range: 3
+    Sprite: {fileID: 0}
+    binding: 2
+    icon: {fileID: 0}
+  - cooldown: 10
+    cooldowncounter: 0
+    name: 
+    multiplier: 1.2
+    range: 5
+    Sprite: {fileID: 0}
+    binding: 3
+    icon: {fileID: 0}
+  - cooldown: 5
+    cooldowncounter: 0
+    name: 
+    multiplier: 1.1
+    range: 1
+    Sprite: {fileID: 0}
+    binding: 4
+    icon: {fileID: 0}
   BaseDamage: 20
-  AutoAttackCD: 1
+  AutoAttackCD: 1.2
   AutoAttackCounter: 0
   autoattackrange: 2
-  TextPopUp: {fileID: 8633779991096019297, guid: a456f39dd38be2c4e82bc0d30020bc10, type: 3}
 --- !u!1 &2715317973663348805
 GameObject:
   m_ObjectHideFlags: 0

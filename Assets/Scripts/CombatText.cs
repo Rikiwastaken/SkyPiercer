@@ -11,11 +11,14 @@ public class CombatText : MonoBehaviour
     private int framesbeforefade;
 
     private GameObject Cam;
+
+    private SceneInfo sceneInfo;
     void Start()
     {
 
         Cam = GameObject.Find("Main Camera");
         framesbeforefade = (int)(timebeforefade/Time.deltaTime);
+        sceneInfo = GameObject.Find("GeneralManager").GetComponent<SceneInfo>();
     }
 
     // Update is called once per frame
@@ -32,5 +35,9 @@ public class CombatText : MonoBehaviour
             Destroy(gameObject);
         }
         transform.rotation = Quaternion.identity;
+        if(!sceneInfo.incombat)
+        {
+            Destroy(gameObject);
+        }
     }
 }
