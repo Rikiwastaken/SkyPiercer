@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,7 @@ public class ArtsIconManager : MonoBehaviour
     private CombatCharacter combatcharacter;
     private SceneInfo sceneinfo;
 
-    public int posxwhenoutofcombat;
+    public int posywhenoutofcombat;
     public float movespeed;
 
     private Vector3 basePos;
@@ -25,11 +26,12 @@ public class ArtsIconManager : MonoBehaviour
                 {
                     art.icon.GetComponent<Image>().sprite = art.Sprite;
                 }
+                art.icon.GetComponentInChildren<TextMeshProUGUI>().text=art.name;
 
             }
         }
         basePos = GetComponent<RectTransform>().position;
-        GetComponent<RectTransform>().position = basePos + new Vector3(posxwhenoutofcombat, 0, 0);
+        GetComponent<RectTransform>().position = basePos + new Vector3(0,posywhenoutofcombat, 0);
     }
 
     // Update is called once per frame
@@ -58,13 +60,13 @@ public class ArtsIconManager : MonoBehaviour
             }
         }
 
-        if(sceneinfo.incombat && GetComponent<RectTransform>().position.x>= basePos.x)
+        if(sceneinfo.incombat && GetComponent<RectTransform>().position.y<= basePos.y)
         {
-            GetComponent<RectTransform>().position = GetComponent<RectTransform>().position - new Vector3(movespeed*Time.deltaTime, 0, 0);
+            GetComponent<RectTransform>().position = GetComponent<RectTransform>().position + new Vector3(0, movespeed*Time.deltaTime, 0);
         }
-        if (!sceneinfo.incombat && GetComponent<RectTransform>().position.x <= basePos.x + posxwhenoutofcombat)
+        if (!sceneinfo.incombat && GetComponent<RectTransform>().position.y >= basePos.y + posywhenoutofcombat)
         {
-            GetComponent<RectTransform>().position = GetComponent<RectTransform>().position + new Vector3(movespeed * Time.deltaTime, 0, 0);
+            GetComponent<RectTransform>().position = GetComponent<RectTransform>().position - new Vector3(0, movespeed * Time.deltaTime, 0);
         }
 
     }
